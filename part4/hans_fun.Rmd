@@ -1,0 +1,45 @@
+---
+title: "Untitled"
+output: html_document
+date: "2025-01-18"
+---
+
+
+```{r}
+memory.limit()
+
+```
+
+
+# 204个国家SDI不平等分析
+
+```{r}
+# 模拟数据
+set.seed(123)
+data <- data.frame(
+  country = sample(c("USA", "CHN", "IND", "BRA", "JPN", "FRA", "NGA", "ZAF", "KEN", "RUS"), 100, replace = TRUE),
+  SDI = runif(100, 0.2, 0.9),  # SDI 介于0~1之间
+  asthma_prevalence = rnorm(100, mean = 5000, sd = 1500) + runif(100, 0.2, 0.9)*5000  # SDI越高，患病率越高
+)
+
+
+# 加载必要的包
+library(ggplot2)
+
+# 散点图绘制
+ggplot(data, aes(x = SDI, y = asthma_prevalence, label = country)) +
+  geom_point(aes(color = SDI), size = 2, alpha = 0.8) +
+  scale_color_gradient(low = "purple", high = "green") +
+  geom_text(size = 2, vjust = -0.5, check_overlap = TRUE) +
+  labs(
+    title = "Asthma age-standardised prevalence rate by SDI (Simulated)",
+    x = "Socio-demographic Index (SDI)",
+    y = "Asthma Prevalence Rate per 100,000 population",
+    color = "SDI"
+  ) +
+  theme_minimal(base_size = 12)
+```
+
+
+
+
